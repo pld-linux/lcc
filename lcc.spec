@@ -1,13 +1,13 @@
 Summary:	a simple non-optimizing ANSI C compiler
 Summary(pl):	prosty nie-optymalizuj±cy kompilator ANSI C
 Name:		lcc
-Version:	4.1
-Release:	3
+Version:	4.2
+Release:	1
 License:	distributable
 Group:		Development/Tools
 URL:		http://www.cs.princeton.edu/software/lcc/
+# Source0-md5:	f4b11e93b023350c0a8b7619b09cb782
 Source0:	ftp://ftp.cs.princeton.edu/pub/packages/lcc/%{name}-%{version}.tar.gz
-# Source0-md5:	490094598d2bd1f4c04e6d8e3fbd59fd
 Patch0:		%{name}-ftol.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Requires:	gcc
@@ -38,7 +38,7 @@ narzêdzie testowania zgodno¶ci z ANSI C (lub czymkolwiek innym ni¿ gcc
 
 %prep
 %setup -q
-%patch -p1
+#%patch -p1
 
 %build
 mkdir build

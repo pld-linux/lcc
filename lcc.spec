@@ -47,7 +47,7 @@ mkdir build/include
 cp include/x86/linux/* build/include
 ln -s `gcc -v 2>&1 | grep from | sed -e 's/.*from //' -e 's|/specs||'` build/gcc
 export BUILDDIR=`pwd`/build
-%{__make} CFLAGS="$RPM_OPT_FLAGS -DLCCDIR='\"%{_libdir}/lcc/\"'" \
+%{__make} CFLAGS="$RPM_OPT_FLAGS -DLCCDIR='\"%{_libdir}/lcc/\"'" HOSTFILE=etc/linux.c lcc 
 %{__make} CFLAGS="$RPM_OPT_FLAGS" 
 
 %install 

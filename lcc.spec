@@ -49,7 +49,7 @@ export BUILDDIR=`pwd`/build
 		-DLCCDIR='\"%{_libdir}/lcc/\"'"
 %{__make} all CFLAGS="%{rpmcflags}"
 
-%install 
+%install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}/lcc,%{_mandir}/man1}
 cp build/lcc $RPM_BUILD_ROOT%{_bindir}

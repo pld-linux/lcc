@@ -2,7 +2,7 @@ Summary:	a simple non-optimizing ANSI C compiler
 Summary(pl):	prosty nie-optymalizuj±cy kompilator ANSI C
 Name:		lcc
 Version:	4.1
-Release:	2
+Release:	3
 License:	distributable
 Group:		Development/Tools
 URL:		http://www.cs.princeton.edu/software/lcc/
@@ -13,6 +13,7 @@ Requires:	gcc
 # sed and grep are required only for installation
 Prereq:		sed
 Prereq:		grep
+ExclusiveArch:	%{ix86}
 Vendor:		C. W. Fraser & H. R. Hanson <lcc-bugs@cs.princeton.edu>
 
 %description

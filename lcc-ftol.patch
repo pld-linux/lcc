@@ -1,0 +1,64 @@
+diff -urN lcc-4.1-/lib/ftol.s lcc-4.1/lib/ftol.s
+--- lcc-4.1-/lib/ftol.s	Thu Jan  1 01:00:00 1970
++++ lcc-4.1/lib/ftol.s	Thu Nov 23 00:16:02 2000
+@@ -0,0 +1,27 @@
++/
++/ file generated with gcc from :
++/	long __ftol(double a)
++/	{
++/		return (long)a;
++/	}
++/ with loading of double a arg removed, so what's on stack is used.
++/
++
++.text
++	.align 4
++.globl __ftol
++	.type	 __ftol,@function
++__ftol:
++	subl $28,%esp
++	fnstcw 14(%esp)
++	movw 14(%esp),%dx
++	orw $3072,%dx
++	movw %dx,12(%esp)
++	fldcw 12(%esp)
++	fistpl 8(%esp)
++	movl 8(%esp),%eax
++	fldcw 14(%esp)
++	addl $28,%esp
++	ret
++.Lfe1:
++	.size	 __ftol,.Lfe1-__ftol
+diff -urN lcc-4.1-/makefile lcc-4.1/makefile
+--- lcc-4.1-/makefile	Mon Sep 21 20:34:16 1998
++++ lcc-4.1/makefile	Thu Nov 23 00:24:41 2000
+@@ -137,13 +137,14 @@
+ $Blcc$O:	etc/lcc.c;	$(CC) $(CFLAGS) -c -DTEMPDIR=\"$(TEMPDIR)\" -o $@ etc/lcc.c
+ $Bhost$O:	$(HOSTFILE);	$(CC) $(CFLAGS) -c -o $@ $(HOSTFILE)
+ 
+-LIBOBJS=$Bassert$O $Bbbexit$O $Byynull$O
++LIBOBJS=$Bassert$O $Bbbexit$O $Byynull$O $Bftol$O
+ 
+-$Bliblcc$A:	$(LIBOBJS);	$(AR) $@ $Bassert$O $Bbbexit$O $Byynull$O; $(RANLIB) $@ || true
++$Bliblcc$A:	$(LIBOBJS);	$(AR) $@ $Bassert$O $Bbbexit$O $Bftol$O $Byynull$O; $(RANLIB) $@ || true
+ 
+ $Bassert$O:	lib/assert.c;	$(CC) $(CFLAGS) -c -o $@ lib/assert.c
+ $Byynull$O:	lib/yynull.c;	$(CC) $(CFLAGS) -c -o $@ lib/yynull.c
+ $Bbbexit$O:	lib/bbexit.c;	$(CC) $(CFLAGS) -c -o $@ lib/bbexit.c
++$Bftol$O:	lib/ftol.s;	$(CC) $(CFLAGS) -c -o $@ lib/ftol.s
+ 
+ $Blburg$E:	$Blburg$O $Bgram$O;	$(LD) $(LDFLAGS) -o $@ $Blburg$O $Bgram$O 
+ 
+diff -urN lcc-4.1-/src/x86linux.md lcc-4.1/src/x86linux.md
+--- lcc-4.1-/src/x86linux.md	Mon Sep 21 20:35:14 1998
++++ lcc-4.1/src/x86linux.md	Thu Nov 23 00:20:21 2000
+@@ -566,8 +566,7 @@
+ freg: CVFF8(freg)  "# CVFF8\n"
+ freg: CVFF4(freg)  "sub $4,%%esp\nfstps (%%esp)\nflds (%%esp)\naddl $4,%%esp\n"  12
+ 
+-stmt: ASGNI4(addr,CVFI4(freg))  "fistpl %0\n" 29
+-reg: CVFI4(freg)  "subl $4,%%esp\nfistpl 0(%%esp)\npopl %c\n" 31
++reg: CVFI4(freg)  "call __ftol\n" 31
+ 
+ freg: CVIF8(INDIRI4(addr))      "fildl %0\n"  10
+ freg: CVIF8(reg)  "pushl %0\nfildl (%%esp)\naddl $4,%%esp\n"  12

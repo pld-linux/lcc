@@ -5,9 +5,6 @@ Version:	4.1
 Release:	2
 License:	distributable
 Group:		Development/Tools
-Group(de):	Entwicklung/Werkzeuge
-Group(fr):	Development/Outils
-Group(pl):	Programowanie/Narzêdzia
 URL:		http://www.cs.princeton.edu/software/lcc/
 Source0:	ftp://ftp.cs.princeton.edu/pub/packages/lcc/%{name}-%{version}.tar.gz
 Patch0:		%{name}-ftol.patch

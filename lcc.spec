@@ -71,7 +71,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README LOG COPYRIGHT doc/*html
+%doc README LOG CPYRIGHT doc/*html
 %attr(755,root,root) %{_bindir}/lcc
 %attr(755,root,root) %{_libdir}/lcc/bprint
 %attr(755,root,root) %{_libdir}/lcc/cpp

@@ -48,9 +48,9 @@ cp include/x86/linux/* build/include
 ln -s `gcc -v 2>&1 | grep from | sed -e 's/.*from //' -e 's|/specs||'` build/gcc
 export BUILDDIR=`pwd`/build
 %{__make} HOSTFILE=etc/linux.c lcc \
-	CFLAGS="%{!?debug:$RPM_OPT_FLAGS}%{?debug:-O -g} \
+	CFLAGS="%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS} \
 		-DLCCDIR='\"%{_libdir}/lcc/\"'"
-%{__make} all CFLAGS="%{!?debug:$RPM_OPT_FLAGS}%{?debug:-O -g}"
+%{__make} all CFLAGS="%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS}"
 
 %install 
 rm -rf $RPM_BUILD_ROOT

@@ -2,7 +2,7 @@ Summary:	a simple non-optimizing ANSI C compiler
 Summary(pl):	prosty nie-optymalizuj±cy kompilator ANSI C
 Name:		lcc
 Version:	4.1
-Release:	0
+Release:	1
 License:	Distributable
 Group:		Development/Tools
 Group(de):	Entwicklung/Werkzeuge
@@ -14,8 +14,8 @@ Patch0:		%{name}-ftol.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Requires:	gcc
 # sed and grep are required only for installation
-Requires:	sed
-Requires:	grep
+Prereq:		sed
+Prereq:		grep
 Vendor:		C. W. Fraser & H. R. Hanson <lcc-bugs@cs.princeton.edu>
 
 %description
@@ -47,8 +47,10 @@ mkdir build/include
 cp include/x86/linux/* build/include
 ln -s `gcc -v 2>&1 | grep from | sed -e 's/.*from //' -e 's|/specs||'` build/gcc
 export BUILDDIR=`pwd`/build
-%{__make} CFLAGS="$RPM_OPT_FLAGS -DLCCDIR='\"%{_libdir}/lcc/\"'" HOSTFILE=etc/linux.c lcc 
-%{__make} CFLAGS="$RPM_OPT_FLAGS" all 
+%{__make} HOSTFILE=etc/linux.c lcc \
+	CFLAGS="%{!?debug:$RPM_OPT_FLAGS}%{?debug:-O -g} \
+		-DLCCDIR='\"%{_libdir}/lcc/\"'"
+%{__make} all CFLAGS="%{!?debug:$RPM_OPT_FLAGS}%{?debug:-O -g}"
 
 %install 
 rm -rf $RPM_BUILD_ROOT
@@ -56,10 +58,9 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}/lcc,%{_mandir}/man1}
 cp build/lcc $RPM_BUILD_ROOT%{_bindir}
 cp -r build/{bprint,cpp,lburg,rcc,liblcc.a,include} \
 	$RPM_BUILD_ROOT%{_libdir}/lcc
-cp doc/*.1 lburg/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install doc/*.1 lburg/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
-gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man?/* \
-	README LOG CPYRIGHT
+gzip -9nf README LOG CPYRIGHT
 
 %post
 # lcc is not really gcc version dependent, possibly most version will do

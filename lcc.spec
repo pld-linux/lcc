@@ -7,6 +7,7 @@ License:	distributable
 Group:		Development/Tools
 URL:		http://www.cs.princeton.edu/software/lcc/
 Source0:	ftp://ftp.cs.princeton.edu/pub/packages/lcc/%{name}-%{version}.tar.gz
+# Source0-md5:	490094598d2bd1f4c04e6d8e3fbd59fd
 Patch0:		%{name}-ftol.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Requires:	gcc

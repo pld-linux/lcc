@@ -58,8 +58,6 @@ cp -r build/{bprint,cpp,lburg,rcc,liblcc.a,include} \
 	$RPM_BUILD_ROOT%{_libdir}/lcc
 install doc/*.1 lburg/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
-gzip -9nf README LOG CPYRIGHT
-
 %post
 # lcc is not really gcc version dependent, possibly most version will do
 ln -sf `gcc -v 2>&1 | grep from | sed -e 's/.*from //' -e 's|/specs||'` \
@@ -73,7 +71,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *gz doc/*html
+%doc README LOG COPYRIGHT doc/*html
 %attr(755,root,root) %{_bindir}/lcc
 %attr(755,root,root) %{_libdir}/lcc/bprint
 %attr(755,root,root) %{_libdir}/lcc/cpp

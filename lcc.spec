@@ -2,7 +2,7 @@ Summary:	a simple non-optimizing ANSI C compiler
 Summary(pl):	prosty nie-optymalizuj±cy kompilator ANSI C
 Name:		lcc
 Version:	4.1
-Release:	1
+Release:	2
 License:	Distributable
 Group:		Development/Tools
 Group(de):	Entwicklung/Werkzeuge

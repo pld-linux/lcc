@@ -4,18 +4,19 @@ Name:		lcc
 Version:	4.2
 Release:	1
 License:	distributable
+Vendor:		C. W. Fraser & H. R. Hanson <lcc-bugs@cs.princeton.edu>
 Group:		Development/Tools
-URL:		http://www.cs.princeton.edu/software/lcc/
 # Source0-md5:	f4b11e93b023350c0a8b7619b09cb782
 Source0:	ftp://ftp.cs.princeton.edu/pub/packages/lcc/%{name}-%{version}.tar.gz
 Patch0:		%{name}-ftol.patch
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Requires:	gcc
+URL:		http://www.cs.princeton.edu/software/lcc/
 # sed and grep are required only for installation
-Prereq:		sed
-Prereq:		grep
+Requires(post):	grep
+Requires(post):	sed
+Requires(post,preun):	fileutils
+Requires:	gcc
 ExclusiveArch:	%{ix86}
-Vendor:		C. W. Fraser & H. R. Hanson <lcc-bugs@cs.princeton.edu>
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 lcc is the ANSI C compiler described in Christopher W. Fraser's and
@@ -46,15 +47,18 @@ mkdir build/include
 cp include/x86/linux/* build/include
 ln -s `gcc -v 2>&1 | grep from | sed -e 's/.*from //' -e 's|/specs||'` build/gcc
 export BUILDDIR=`pwd`/build
-%{__make} HOSTFILE=etc/linux.c lcc \
-	CFLAGS="%{rpmcflags} \
-		-DLCCDIR='\"%{_libdir}/lcc/\"'"
-%{__make} all CFLAGS="%{rpmcflags}"
+%{__make} lcc \
+	HOSTFILE=etc/linux.c \
+	CFLAGS="%{rpmcflags} -DLCCDIR='\"%{_libdir}/lcc/\"'"
+
+%{__make} all \
+	CFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}/lcc,%{_mandir}/man1}
-cp build/lcc $RPM_BUILD_ROOT%{_bindir}
+
+install build/lcc $RPM_BUILD_ROOT%{_bindir}
 cp -r build/{bprint,cpp,lburg,rcc,liblcc.a,include} \
 	$RPM_BUILD_ROOT%{_libdir}/lcc
 install doc/*.1 lburg/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
@@ -74,11 +78,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README LOG CPYRIGHT doc/*html
 %attr(755,root,root) %{_bindir}/lcc
+%dir %{_libdir}/lcc
 %attr(755,root,root) %{_libdir}/lcc/bprint
 %attr(755,root,root) %{_libdir}/lcc/cpp
 %attr(755,root,root) %{_libdir}/lcc/lburg
 %attr(755,root,root) %{_libdir}/lcc/rcc
-%dir %{_libdir}/lcc
 %{_libdir}/lcc/include
 %{_libdir}/lcc/liblcc.a
 %{_mandir}/man?/*

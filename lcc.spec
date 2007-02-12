@@ -1,5 +1,5 @@
 Summary:	A simple non-optimizing ANSI C compiler
-Summary(pl):	Prosty nie-optymalizuj±cy kompilator ANSI C
+Summary(pl.UTF-8):   Prosty nie-optymalizujƒÖcy kompilator ANSI C
 Name:		lcc
 Version:	4.2
 Release:	1
@@ -27,14 +27,14 @@ It doesn't have all the abilites of gcc. It's mainly mean as tool for
 testing your program's compilance with ANSI C standards (or with
 anything else then gcc ;).
 
-%description -l pl
-lcc jest kompilatorem ANSI C opisanym w ksi±øce Christopher'a W.
-Fraser'a and David'a R. Hanson'a pod tytu≥em A Retargetable C
+%description -l pl.UTF-8
+lcc jest kompilatorem ANSI C opisanym w ksiƒÖ≈ºce Christopher'a W.
+Fraser'a and David'a R. Hanson'a pod tytu≈Çem A Retargetable C
 Compiler: Design and Implementation (Addison-Wesley, 1995, ISBN
 0-8053-1670-1).
 
-lcc nie posiada wszystkich moøliwo∂ci gcc. Jest g≥Ûwnie uøyteczne jako
-narzÍdzie testowania zgodno∂ci z ANSI C (lub czymkolwiek innym niø gcc
+lcc nie posiada wszystkich mo≈ºliwo≈õci gcc. Jest g≈Ç√≥wnie u≈ºyteczne jako
+narzƒôdzie testowania zgodno≈õci z ANSI C (lub czymkolwiek innym ni≈º gcc
 ;).
 
 %prep

@@ -1,5 +1,5 @@
 Summary:	A simple non-optimizing ANSI C compiler
-Summary(pl.UTF-8):   Prosty nie-optymalizujący kompilator ANSI C
+Summary(pl.UTF-8):	Prosty nie-optymalizujący kompilator ANSI C
 Name:		lcc
 Version:	4.2
 Release:	1

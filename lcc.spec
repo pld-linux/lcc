@@ -6,8 +6,8 @@ Release:	1
 License:	distributable
 Vendor:		C. W. Fraser & H. R. Hanson <lcc-bugs@cs.princeton.edu>
 Group:		Development/Tools
-# Source0-md5:	f4b11e93b023350c0a8b7619b09cb782
 Source0:	ftp://ftp.cs.princeton.edu/pub/packages/lcc/%{name}-%{version}.tar.gz
+# Source0-md5:	f4b11e93b023350c0a8b7619b09cb782
 Patch0:		%{name}-ftol.patch
 URL:		http://www.cs.princeton.edu/software/lcc/
 # sed and grep are required only for installation

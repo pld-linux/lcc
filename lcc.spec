@@ -39,7 +39,7 @@ narzędzie testowania zgodności z ANSI C (lub czymkolwiek innym niż gcc
 
 %prep
 %setup -q
-#%patch -p1
+#%%patch -p1
 
 %build
 mkdir build
